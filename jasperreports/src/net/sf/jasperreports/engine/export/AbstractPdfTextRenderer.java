@@ -169,13 +169,15 @@ public abstract class AbstractPdfTextRenderer extends AbstractTextRenderer
 		String paragraphText
 		) 
 	 {
+
+		boolean isArtifact = (this.text.getPropertiesMap().getProperty("net.sf.jasperreports.export.pdf.tag.artifact") != null ? true : false);		
 		if (addActualText())
 		{
-			tagHelper.startText(paragraphText, text.getLinkType() != null);
+			tagHelper.startText(paragraphText, text.getLinkType() != null, isArtifact);
 		}
 		else
 		{
-			tagHelper.startText(text.getLinkType() != null);
+			tagHelper.startText(text.getLinkType() != null, isArtifact);
 		}
 		
 		super.renderParagraph(allParagraphs, paragraphStart, paragraphText);
