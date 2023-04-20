@@ -119,7 +119,9 @@ public class SimplePdfTextRenderer extends AbstractPdfTextRenderer
 		)
 	{
 //		tagHelper.startText(text.getLinkType() != null);
-		boolean isArtifact = (this.text.getPropertiesMap().getProperty("net.sf.jasperreports.export.pdf.tag.artifact") != null ? true : false);		
+		boolean isArtifact = 
+				(text.getPropertiesMap().containsProperty("net.sf.jasperreports.export.pdf.tag.artifact") &&
+				!"none".equals(text.getPropertiesMap().getProperty("net.sf.jasperreports.export.pdf.tag.artifact")) ? true : false);	
 		tagHelper.startText(text.getLinkType() != null, isArtifact);
 
 		if (bulletChunk != null)

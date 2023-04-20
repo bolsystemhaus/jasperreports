@@ -522,7 +522,9 @@ public class JRPdfExporterTagHelper implements StyledTextListWriter
 	{
 		if (isTagged)
 		{
-			boolean isArtifact = (printImage.getPropertiesMap().getProperty("net.sf.jasperreports.export.pdf.tag.artifact") != null ? true : false);
+			boolean isArtifact = 
+					(printImage.getPropertiesMap().containsProperty("net.sf.jasperreports.export.pdf.tag.artifact") &&
+					!"none".equals(printImage.getPropertiesMap().getProperty("net.sf.jasperreports.export.pdf.tag.artifact")) ? true : false);
 			PdfStructureEntry imageTag = null;
 			if(isArtifact) {
 //				imageTag = pdfStructure.beginTag(allTag, "ImageArtifact");
