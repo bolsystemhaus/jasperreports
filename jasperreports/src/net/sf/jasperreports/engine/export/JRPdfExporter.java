@@ -2350,6 +2350,10 @@ public class JRPdfExporter extends JRAbstractExporter<PdfReportConfiguration, Pd
 					break;
 				}
 			}
+
+            final String hyperlinkTooltip = link.getHyperlinkTooltip();
+
+            chunk.setTooltip(hyperlinkTooltip);
 		}
 	}
 	
