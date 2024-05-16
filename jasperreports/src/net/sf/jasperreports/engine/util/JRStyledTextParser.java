@@ -427,6 +427,15 @@ public class JRStyledTextParser implements ErrorHandler
 				sb.append(QUOTE);
 			}
 			
+			final String tooltip = hlink.getHyperlinkTooltip();
+            if (tooltip != null && tooltip.trim().length() > 0) {
+                sb.append(SPACE);
+                sb.append("title");
+                sb.append(EQUAL_QUOTE);
+                sb.append(tooltip);
+                sb.append(QUOTE);
+            }
+
 			String type = hlink.getLinkType();
 			if (type != null && type.trim().length() > 0)
 			{
@@ -884,6 +893,12 @@ public class JRStyledTextParser implements ErrorHandler
 					{
 						hyperlink.setLinkTarget(nodeAttrs.getNamedItem(ATTRIBUTE_target).getNodeValue());
 					}
+
+                    final Node titleNode = nodeAttrs.getNamedItem("title");
+
+                    if (titleNode != null) {
+                        hyperlink.setHyperlinkTooltip(titleNode.getNodeValue());
+                    }
 
 					int startIndex = styledText.length();
 
