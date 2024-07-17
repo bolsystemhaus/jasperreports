@@ -42,4 +42,6 @@ public interface PdfChunk
 
 	void setRemoteGoto(String reference, int page);
 
+    void setTooltip(String tooltip);
+
 }

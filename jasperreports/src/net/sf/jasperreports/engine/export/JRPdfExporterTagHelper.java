@@ -522,10 +522,21 @@ public class JRPdfExporterTagHelper implements StyledTextListWriter
 	{
 		if (isTagged)
 		{
-			PdfStructureEntry imageTag = pdfStructure.beginTag(allTag, "Image");
-			if (printImage.getHyperlinkTooltip() != null)
-			{
-				imageTag.putString("Alt", printImage.getHyperlinkTooltip());
+			boolean isArtifact = 
+					(printImage.getPropertiesMap().containsProperty("net.sf.jasperreports.export.pdf.tag.artifact") &&
+					!"none".equals(printImage.getPropertiesMap().getProperty("net.sf.jasperreports.export.pdf.tag.artifact")) ? true : false);
+			PdfStructureEntry imageTag = null;
+			if(isArtifact) {
+//				imageTag = pdfStructure.beginTag(allTag, "ImageArtifact");
+				imageTag = pdfStructure.beginTag(tagStack.peek(), "ImageArtifact");
+			}
+			else {
+//				imageTag = pdfStructure.beginTag(allTag, "Image");
+				imageTag = pdfStructure.beginTag(tagStack.peek(), "Image");
+
+				if (printImage.getHyperlinkTooltip() != null) {
+					imageTag.putString("Alt", printImage.getHyperlinkTooltip());
+				}
 			}
 		}
 	}
@@ -548,6 +559,18 @@ public class JRPdfExporterTagHelper implements StyledTextListWriter
 		}
 	}
 
+	protected void startText(boolean isHyperlink, boolean isArtifact)
+	{
+		if (isTagged)
+		{
+			if(isArtifact)
+				pdfStructure.beginTag(tagStack.peek(), isHyperlink ? "LinkArtifact" : "TextArtifact");
+			else
+				pdfStructure.beginTag(tagStack.peek(), isHyperlink ? "Link" : "Text");
+		}
+	}
+
+
 	protected void startText(String text, boolean isHyperlink)
 	{
 		if (isTagged)
@@ -557,6 +580,17 @@ public class JRPdfExporterTagHelper implements StyledTextListWriter
 		}
 	}
 
+	protected void startText(String text, boolean isHyperlink, boolean isArtifact)
+	{
+		if (isTagged)
+		{
+			if(isArtifact)
+				pdfStructure.beginTag(tagStack.peek(), isHyperlink ? "LinkArtifact" : "TextArtifact", text);
+			else
+				pdfStructure.beginTag(tagStack.peek(), isHyperlink ? "Link" : "Text", text);
+		}
+	}
+	
 	protected void endText()
 	{
 		if (isTagged)
