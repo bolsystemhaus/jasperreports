@@ -82,5 +82,10 @@ public class ClassicStructureEntry implements PdfStructureEntry
 		a.add(dict);
 		element.put(PdfName.A, a);
 	}
+
+    @Override
+    public void changeScopeAttribute(final String scope) {
+        /* not implemented */
+    }
 	
 }

@@ -40,6 +40,7 @@ import net.sf.jasperreports.crosstabs.JRCellContents;
 import net.sf.jasperreports.engine.JRPrintElement;
 import net.sf.jasperreports.engine.JRPrintFrame;
 import net.sf.jasperreports.engine.JRPrintImage;
+import net.sf.jasperreports.engine.JRPropertiesMap;
 import net.sf.jasperreports.engine.util.StyledTextListWriter;
 import net.sf.jasperreports.export.AccessibilityUtil;
 import net.sf.jasperreports.export.pdf.PdfProducer;
@@ -709,6 +710,8 @@ public class JRPdfExporterTagHelper implements StyledTextListWriter
 		isTagEmpty = true;
 		
 		createSpanTags(element, tableHeaderTag);
+
+        createScopeAttribute(element, tableHeaderTag);
 	}
 
 	
@@ -766,6 +769,16 @@ public class JRPdfExporterTagHelper implements StyledTextListWriter
 		}
 	}
 
+    protected void createScopeAttribute(final JRPrintElement element, final PdfStructureEntry pdfStructureEntry) {
+        final JRPropertiesMap jrPropertiesMap = element.getPropertiesMap();
+        final String scope = jrPropertiesMap.getProperty("net.sf.jasperreports.export.pdf.tag.scope");
+
+        if (null != scope) {
+            if ("Row".equals(scope) || "Column".equals(scope) || "Both".equals(scope)) {
+                pdfStructureEntry.changeScopeAttribute(scope);
+            }
+        }
+    }
 
 	protected void createListStartTag()
 	{

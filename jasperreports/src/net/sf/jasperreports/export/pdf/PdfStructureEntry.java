@@ -36,4 +36,6 @@ public interface PdfStructureEntry
 
 	void setSpan(int colSpan, int rowSpan);
 
+    void changeScopeAttribute(String scope);
+
 }
