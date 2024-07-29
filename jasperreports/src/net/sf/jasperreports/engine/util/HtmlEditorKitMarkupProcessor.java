@@ -309,6 +309,7 @@ public class HtmlEditorKitMarkupProcessor extends EditorKitMarkupProcessor
 								hyperlink.setHyperlinkType(HyperlinkTypeEnum.REFERENCE);
 								hyperlink.setHyperlinkReference((String)attrSet.getAttribute(HTML.Attribute.HREF));
 								hyperlink.setLinkTarget((String)attrSet.getAttribute(HTML.Attribute.TARGET));
+								hyperlink.setHyperlinkTooltip((String)attrSet.getAttribute(HTML.Attribute.TITLE));
 								styleAttributes.put(JRTextAttribute.HYPERLINK, hyperlink);
 							}
 						}
