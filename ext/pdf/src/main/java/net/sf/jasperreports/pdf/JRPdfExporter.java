@@ -2103,7 +2103,7 @@ public class JRPdfExporter extends JRAbstractExporter<PdfReportConfiguration, Pd
 	/**
 	 *
 	 */
-	protected void setHyperlinkInfo(PdfChunk chunk, JRPrintHyperlink link)
+	public void setHyperlinkInfo(PdfChunk chunk, JRPrintHyperlink link)
 	{
 		if (link != null)
 		{
@@ -2213,11 +2213,15 @@ public class JRPdfExporter extends JRAbstractExporter<PdfReportConfiguration, Pd
 					break;
 				}
 			}
+
+            final String hyperlinkTooltip = link.getHyperlinkTooltip();
+
+            chunk.setTooltip(hyperlinkTooltip);
 		}
 	}
 	
 	@Override
-	protected Locale getTextLocale(JRPrintText text)
+	public Locale getTextLocale(JRPrintText text)
 	{
 		// only overriding for package access
 		return super.getTextLocale(text);
@@ -2227,7 +2231,7 @@ public class JRPdfExporter extends JRAbstractExporter<PdfReportConfiguration, Pd
 	/**
 	 *
 	 */
-	protected void getPhrase(AttributedString as, String text, JRPrintText textElement,
+	public void getPhrase(AttributedString as, String text, JRPrintText textElement,
 			PdfPhrase phrase)
 	{
 		int runLimit = 0;
@@ -2265,7 +2269,7 @@ public class JRPdfExporter extends JRAbstractExporter<PdfReportConfiguration, Pd
 	/**
 	 *
 	 */
-	protected PdfTextChunk getChunk(Map<Attribute,Object> attributes, String text, Locale locale)
+	public PdfTextChunk getChunk(Map<Attribute,Object> attributes, String text, Locale locale)
 	{
 		// underline and strikethrough are set on the chunk below
 		PdfTextChunk chunk = pdfProducer.createChunk(text, attributes, locale);
@@ -3328,7 +3332,7 @@ public class JRPdfExporter extends JRAbstractExporter<PdfReportConfiguration, Pd
 	}
 
 
-	protected void setAnchor(PdfChunk chunk, JRPrintAnchor anchor, JRPrintElement element)
+	public void setAnchor(PdfChunk chunk, JRPrintAnchor anchor, JRPrintElement element)
 	{
 		String anchorName = anchor.getAnchorName();
 		
@@ -3393,7 +3397,7 @@ public class JRPdfExporter extends JRAbstractExporter<PdfReportConfiguration, Pd
 	/**
 	 *
 	 */
-	protected PrintPageFormat getCurrentPageFormat()
+	public PrintPageFormat getCurrentPageFormat()
 	{
 		return pageFormat;
 	}

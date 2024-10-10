@@ -85,4 +85,9 @@ public class ClassicChunk implements PdfChunk
 		chunk.setRemoteGoto(reference, page);
 	}
 
+    @Override
+    public void setTooltip(final String tooltip) {
+        /* not implemented */
+    }
+
 }
